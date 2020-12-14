@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% block title %}<title>Welcome to Euphoria</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- Добавление дополнительного статического CSS файла -->
+ 
+  <body>
+<div id="css-menu">
+<ul>
+<li><a href="{% url 'index' %}">
+<span class="text-top">Home</span>
+</a></li>
+<li><a href="{% url 'tables' %}">
+<span class="text-top">Table</span>
+</a></li>
+<div class="dropdown">
+  <button class="dropbtn">Menu</button>
+  <div class="dropdown-content">
+  <a href="{% url 'foods' %}">Foods</a>
+  <a href="{% url 'drinks' %}">Drinks</a>
+  </div>
+</div>
+</a></li>
+</ul>
+</div> 
+</body>   
+<style>
+#css-menu ul {
+list-style: none;
+font-family: Georgia, serif;
+font-size: 18px;
+font-style: italic;
+line-height: 1.4em;
+border:2px solid #000000;
+border-left: 1px solid #000000;
+float: left;
+padding: 0;
+margin: 12px 0 25px 24px
+}
+
+#css-menu ul li {
+float: left
+}
+
+#css-menu ul li a {
+display: block;
+text-decoration: none;
+background-color: ;
+padding: 5px 10px 0 10px;
+color: #fefefe;
+width: 120px;
+border-right: 1px solid #797979;
+border-left: 1px solid #191919
+}
+
+#css-menu ul li a span {
+display: block
+}
+
+#css-menu ul li a span.text-top {
+border-bottom: 1px solid #595959
+}
+
+#css-menu ul li a:hover span.text-top {
+border-bottom: 1px dashed #fefefe;
+color: #ffddbb
+}
+
+#css-menu ul li a span.text-bottom {
+visibility: hidden;
+font-size: 11px;
+text-align: right
+}
+
+#css-menu ul li a:hover span.text-bottom {
+visibility: visible
+}
+</style>
+<style>
+/* Style The Dropdown Button */
+.dropbtn {
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+}
+</style>
+<ul class="sidebar-nav">   
+          {% if user.is_authenticated %}
+           <li>User: {{ user.get_username }}</li>
+           <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+          {% else %}
+           <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+          {% endif %} 
+      </ul>
+      </div>
+      <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+         {% block pagination %}
+           {% if is_paginated %}
+            <div class="pagination">
+             <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+             </span>
+            </div>
+           {% endif %}
+          {% endblock %} 
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

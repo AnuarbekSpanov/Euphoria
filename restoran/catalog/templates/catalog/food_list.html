@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Menu</h1>
+<style>
+body {
+  background-image: url('https://www.quay.com.au/wp-content/uploads/2018/07/Banner-Image-6.jpg');
+  background-repeat: no-repeat;
+}
+</style>
+      <style>
+    h1 {
+  font-size: 60px;
+  text-align: center;
+  text-transform: uppercase;
+  font-style: italic;
+  font-family: 'William', sans-serif;
+  margin-bottom: 0;
+  margin-top:0;
+  padding-top: 35x;
+  color: white; 
+}
+</style>
+  <p>Food List</p>
+  <style>
+  p  {
+  font-size: 40px;
+  text-transform: uppercase;
+  font-family: 'Sofia', sans-serif;
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: white;
+  text-align: center;
+}
+  </style>
+  {% if food_list %}
+  <ul>
+    {% for food in food_list %}
+      <li>
+        <a href="{{ food.get_absolute_url }}">{{ food.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no food in the menu.</p>
+  {% endif %}       
+{% endblock %}

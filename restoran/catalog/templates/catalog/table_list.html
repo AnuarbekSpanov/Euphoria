@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Table List</h1>
+ <style>
+body {
+  background-image: url('https://cameralabs.org/media/k2/items/cache/ff839e9759294864a80ebc574ed0b269_L.jpg');
+  background-repeat: no-repeat;
+}
+</style>
+  {% if table_list %}
+  <ul>
+    {% for table in table_list %}
+      <li>
+        <a href="{{ table.get_absolute_url }}">{{ table.number }}</a> 
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no free tables in the restaurant.</p>
+  {% endif %}       
+{% endblock %}
+
